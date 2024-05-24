@@ -12,7 +12,7 @@ namespace LilsCareApp.Core.Models.AdminOrderDetails
         public int Id { get; set; }
         public string? OrderNumber { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public int StatusOrderId { get; set; }
 
@@ -26,7 +26,7 @@ namespace LilsCareApp.Core.Models.AdminOrderDetails
 
         public string? AppUserName { get; set; }
 
-        public DateTime? DateShipping { get; set; }
+        public DateTimeOffset? DateShipping { get; set; }
 
 
         [MaxLength(TrackingNumberMaxLength, ErrorMessage = StringLengthMax)]

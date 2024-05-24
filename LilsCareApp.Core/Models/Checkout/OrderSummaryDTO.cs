@@ -4,7 +4,7 @@
     {
         public string? OrderNumber { get; set; }
 
-        public DateTime OrderDate { get; set; }
+        public DateTimeOffset OrderDate { get; set; }
 
         public string FirstName { get; set; } = string.Empty;
 

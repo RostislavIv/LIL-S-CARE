@@ -22,9 +22,9 @@ namespace LilsCareApp.Infrastructure.Data.Models
         public decimal Discount { get; set; }
 
         [Comment("Expiration Date of Promo Code")]
-        public DateTime ExpirationDate { get; set; }
+        public DateTimeOffset ExpirationDate { get; set; }
 
-        public DateTime? AppliedDate { get; set; }
+        public DateTimeOffset? AppliedDate { get; set; }
 
         [Comment("Owner of Promo Code")]
         public required string AppUserId { get; set; }

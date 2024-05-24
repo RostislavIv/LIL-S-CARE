@@ -20,7 +20,7 @@ namespace LilsCareApp.Infrastructure.Data.Models
         [Required]
         public required string Message { get; set; }
 
-        public DateTime DateSent { get; set; }
+        public DateTimeOffset DateSent { get; set; }
 
         public string? AppUserId { get; set; }
 

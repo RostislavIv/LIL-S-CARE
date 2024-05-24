@@ -11,7 +11,7 @@ namespace LilsCareApp.Infrastructure.Data.Models
         [Required]
         public required string Email { get; set; }
 
-        public DateTime DateAdded { get; set; }
+        public DateTimeOffset DateAdded { get; set; }
 
         public string? AppUserId { get; set; }
 

@@ -6,7 +6,7 @@
 
         public string OrderNumber { get; set; } = string.Empty;
 
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
 
         public string Customer { get; set; } = string.Empty;
 

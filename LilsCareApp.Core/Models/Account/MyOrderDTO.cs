@@ -3,7 +3,7 @@
     public class MyOrderDTO
     {
         public int Id { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         public string OrderNumber { get; set; } = string.Empty;
 
@@ -11,7 +11,7 @@
 
         public IEnumerable<MyProductOrderDTO> Products { get; set; } = [];
 
-        public DateTime? DateShipping { get; set; }
+        public DateTimeOffset? DateShipping { get; set; }
 
         public string? TrackingNumber { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LilsCareApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class _01 : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,13 +18,13 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AppConfigs",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FreeShipping = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "The price at which the shipping is free."),
-                    AddressDeliveryPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "The price at which the delivery to an address is paid."),
-                    ExchangeRateEUR = table.Column<decimal>(type: "decimal(18,4)", nullable: false, comment: "The exchange rate of the euro."),
-                    ExchangeRateBGN = table.Column<decimal>(type: "decimal(18,4)", nullable: false, comment: "The exchange rate of the leva."),
-                    ExchangeRateRON = table.Column<decimal>(type: "decimal(18,4)", nullable: false, comment: "The exchange rate of the lei.")
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FreeShipping = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "The price at which the shipping is free."),
+                    AddressDeliveryPrice = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "The price at which the delivery to an address is paid."),
+                    ExchangeRateEUR = table.Column<decimal>(type: "numeric(18,4)", nullable: false, comment: "The exchange rate of the euro."),
+                    ExchangeRateBGN = table.Column<decimal>(type: "numeric(18,4)", nullable: false, comment: "The exchange rate of the leva."),
+                    ExchangeRateRON = table.Column<decimal>(type: "numeric(18,4)", nullable: false, comment: "The exchange rate of the lei.")
                 },
                 constraints: table =>
                 {
@@ -34,10 +35,10 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,24 +49,24 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "First Name"),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Last Name"),
-                    ImagePath = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true, comment: "The image of user"),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "First Name"),
+                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "Last Name"),
+                    ImagePath = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true, comment: "The image of user"),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,12 +78,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "CategoryNames",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The category's name in English"),
-                    NameBG = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The category's name in Bulgarian"),
-                    NameRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The category's name in Romanian"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The category's name in English"),
+                    NameBG = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The category's name in Bulgarian"),
+                    NameRO = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The category's name in Romanian"),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,12 +94,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "DeliveryNames",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "The delivery name Id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The delivery name in English"),
-                    NameBG = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The delivery name in Bulgarian"),
-                    NameRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The delivery name in Romanian"),
-                    DeliveryMethodId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "The delivery name Id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The delivery name in English"),
+                    NameBG = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The delivery name in Bulgarian"),
+                    NameRO = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The delivery name in Romanian"),
+                    DeliveryMethodId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,12 +110,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "PaymentNames",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Payment name id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The payment name in English"),
-                    NameBG = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The payment name in Bulgarian"),
-                    NameRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The payment name in Romanian"),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Payment name id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The payment name in English"),
+                    NameBG = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The payment name in Bulgarian"),
+                    NameRO = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The payment name in Romanian"),
+                    PaymentMethodId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,12 +126,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ProductNames",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The product's name in English"),
-                    NameBG = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The product's name in Bulgarian"),
-                    NameRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The product's name in Romanian"),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The product's name in English"),
+                    NameBG = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The product's name in Bulgarian"),
+                    NameRO = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The product's name in Romanian"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,12 +142,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ProductOptionals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OptionalEN = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "The product's optional in English"),
-                    OptionalBG = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "The product's optional in Bulgarian"),
-                    OptionalRO = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "The product's optional in Romanian"),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OptionalEN = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false, comment: "The product's optional in English"),
+                    OptionalBG = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false, comment: "The product's optional in Bulgarian"),
+                    OptionalRO = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false, comment: "The product's optional in Romanian"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,12 +158,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "PromoCodeNames",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Promo code name id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The promo code name in English"),
-                    NameBG = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The promo code name in Bulgarian"),
-                    NameRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The promo code name in Romanian"),
-                    PromoCodeId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Promo code name id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The promo code name in English"),
+                    NameBG = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The promo code name in Bulgarian"),
+                    NameRO = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The promo code name in Romanian"),
+                    PromoCodeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,12 +174,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "SectionDescriptions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DescriptionEN = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false, comment: "The section's description in English"),
-                    DescriptionBG = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false, comment: "The section's description in Bulgarian"),
-                    DescriptionRO = table.Column<string>(type: "nvarchar(1500)", maxLength: 1500, nullable: false, comment: "The section's description in Romanian"),
-                    SectionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DescriptionEN = table.Column<string>(type: "character varying(1500)", maxLength: 1500, nullable: false, comment: "The section's description in English"),
+                    DescriptionBG = table.Column<string>(type: "character varying(1500)", maxLength: 1500, nullable: false, comment: "The section's description in Bulgarian"),
+                    DescriptionRO = table.Column<string>(type: "character varying(1500)", maxLength: 1500, nullable: false, comment: "The section's description in Romanian"),
+                    SectionId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,12 +190,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "SectionTitles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TitleEN = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The section's title in English"),
-                    TitleBG = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The section's title in Bulgarian"),
-                    TitleRO = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "The section's title in Romanian"),
-                    SectionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TitleEN = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, comment: "The section's title in English"),
+                    TitleBG = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, comment: "The section's title in Bulgarian"),
+                    TitleRO = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, comment: "The section's title in Romanian"),
+                    SectionId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,9 +206,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ShippingProviders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Unique identifier of shipping provider")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Name of shipping provider")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Unique identifier of shipping provider")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "Name of shipping provider")
                 },
                 constraints: table =>
                 {
@@ -219,12 +220,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "StatusOrderNames",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Status order name id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameEN = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The status order name in English"),
-                    NameBG = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The status order name in Bulgarian"),
-                    NameRO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The status order name in Romanian"),
-                    StatusOrderId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Status order name id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The status order name in English"),
+                    NameBG = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The status order name in Bulgarian"),
+                    NameRO = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "The status order name in Romanian"),
+                    StatusOrderId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,11 +236,11 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoleId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -256,11 +257,11 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -277,10 +278,10 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    LoginProvider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,8 +298,8 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -321,10 +322,10 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LoginProvider = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -341,14 +342,14 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "MessagesFromClients",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailForResponse = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateSent = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    EmailForResponse = table.Column<string>(type: "text", nullable: false),
+                    Message = table.Column<string>(type: "text", nullable: false),
+                    DateSent = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    AppUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -364,11 +365,11 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "Subscribers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    DateAdded = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    AppUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -384,9 +385,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "The category's primary key")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameId = table.Column<int>(type: "int", nullable: false, comment: "The category's name Id")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "The category's primary key")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameId = table.Column<int>(type: "integer", nullable: false, comment: "The category's name Id")
                 },
                 constraints: table =>
                 {
@@ -404,9 +405,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "DeliveryMethods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Delivery method id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameId = table.Column<int>(type: "int", nullable: false, comment: "Delivery method name Id")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Delivery method id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameId = table.Column<int>(type: "integer", nullable: false, comment: "Delivery method name Id")
                 },
                 constraints: table =>
                 {
@@ -423,9 +424,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "PaymentMethods",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Payment method id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameId = table.Column<int>(type: "int", nullable: false, comment: "Payment method name Id")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Payment method id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameId = table.Column<int>(type: "integer", nullable: false, comment: "Payment method name Id")
                 },
                 constraints: table =>
                 {
@@ -443,13 +444,13 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "The product's primary key")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameId = table.Column<int>(type: "int", nullable: false, comment: "The product's name Id"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "The product's price"),
-                    Quantity = table.Column<int>(type: "int", nullable: false, comment: "The product's quantity"),
-                    OptionalId = table.Column<int>(type: "int", nullable: false, comment: "The product's optional Id"),
-                    IsShow = table.Column<bool>(type: "bit", nullable: false, comment: "Is the product show on online store")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "The product's primary key")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameId = table.Column<int>(type: "integer", nullable: false, comment: "The product's name Id"),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "The product's price"),
+                    Quantity = table.Column<int>(type: "integer", nullable: false, comment: "The product's quantity"),
+                    OptionalId = table.Column<int>(type: "integer", nullable: false, comment: "The product's optional Id"),
+                    IsShow = table.Column<bool>(type: "boolean", nullable: false, comment: "Is the product show on online store")
                 },
                 constraints: table =>
                 {
@@ -473,13 +474,13 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "PromoCodes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Promo Code Id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodeId = table.Column<int>(type: "int", nullable: false, comment: "Promo Code Id"),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Discount of Total Price Order"),
-                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Expiration Date of Promo Code"),
-                    AppliedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Owner of Promo Code")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Promo Code Id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CodeId = table.Column<int>(type: "integer", nullable: false, comment: "Promo Code Id"),
+                    Discount = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "Discount of Total Price Order"),
+                    ExpirationDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, comment: "Expiration Date of Promo Code"),
+                    AppliedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    AppUserId = table.Column<string>(type: "text", nullable: false, comment: "Owner of Promo Code")
                 },
                 constraints: table =>
                 {
@@ -503,13 +504,14 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ShippingOffices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OfficeAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Price of shipping"),
-                    ShippingDuration = table.Column<int>(type: "int", nullable: false, comment: "Duration of shipping"),
-                    ShippingProviderId = table.Column<int>(type: "int", nullable: false, comment: "Shipping Provider Id")
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    OfficeAddressId = table.Column<int>(type: "integer", nullable: false),
+                    OfficeAddress = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "Price of shipping"),
+                    ShippingDuration = table.Column<int>(type: "integer", nullable: false, comment: "Duration of shipping"),
+                    ShippingProviderId = table.Column<int>(type: "integer", nullable: false, comment: "Shipping Provider Id")
                 },
                 constraints: table =>
                 {
@@ -526,9 +528,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "StatusOrders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Primary key")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NameId = table.Column<int>(type: "int", nullable: false, comment: "Name of the status Id")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Primary key")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameId = table.Column<int>(type: "integer", nullable: false, comment: "Name of the status Id")
                 },
                 constraints: table =>
                 {
@@ -546,9 +548,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "BagsUsers",
                 columns: table => new
                 {
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "The user id"),
-                    ProductId = table.Column<int>(type: "int", nullable: false, comment: "The product id"),
-                    Quantity = table.Column<int>(type: "int", nullable: false, comment: "The quantity of the product that the user has added to his bag")
+                    AppUserId = table.Column<string>(type: "text", nullable: false, comment: "The user id"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false, comment: "The product id"),
+                    Quantity = table.Column<int>(type: "integer", nullable: false, comment: "The quantity of the product that the user has added to his bag")
                 },
                 constraints: table =>
                 {
@@ -572,11 +574,11 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ImageProducts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "The image id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImagePath = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false, comment: "The path of the image"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    ImageOrder = table.Column<int>(type: "int", nullable: false, comment: "The order of the image in the product")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "The image id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImagePath = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: false, comment: "The path of the image"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    ImageOrder = table.Column<int>(type: "integer", nullable: false, comment: "The order of the image in the product")
                 },
                 constraints: table =>
                 {
@@ -594,8 +596,8 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ProductsCategories",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false, comment: "The product id"),
-                    CategoryId = table.Column<int>(type: "int", nullable: false, comment: "The category id")
+                    ProductId = table.Column<int>(type: "integer", nullable: false, comment: "The product id"),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false, comment: "The category id")
                 },
                 constraints: table =>
                 {
@@ -619,12 +621,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false, comment: "The identifier of the product."),
-                    AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "The identifier of the user that created the review."),
-                    Rating = table.Column<int>(type: "int", nullable: false, comment: "The rating of the review."),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "The title of the review."),
-                    Comment = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true, comment: "The comment of the review."),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date when the review was created.")
+                    ProductId = table.Column<int>(type: "integer", nullable: false, comment: "The identifier of the product."),
+                    AuthorId = table.Column<string>(type: "text", nullable: false, comment: "The identifier of the user that created the review."),
+                    Rating = table.Column<int>(type: "integer", nullable: false, comment: "The rating of the review."),
+                    Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true, comment: "The title of the review."),
+                    Comment = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true, comment: "The comment of the review."),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, comment: "The date when the review was created.")
                 },
                 constraints: table =>
                 {
@@ -648,12 +650,12 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "Sections",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "The section's primary key")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TitleId = table.Column<int>(type: "int", nullable: false, comment: "The section's title Id"),
-                    DescriptionId = table.Column<int>(type: "int", nullable: false, comment: "The section's description Id"),
-                    SectionOrder = table.Column<int>(type: "int", nullable: false, comment: "The section's order in page"),
-                    ProductId = table.Column<int>(type: "int", nullable: false, comment: "The product's primary key")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "The section's primary key")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TitleId = table.Column<int>(type: "integer", nullable: false, comment: "The section's title Id"),
+                    DescriptionId = table.Column<int>(type: "integer", nullable: false, comment: "The section's description Id"),
+                    SectionOrder = table.Column<int>(type: "integer", nullable: false, comment: "The section's order in page"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false, comment: "The product's primary key")
                 },
                 constraints: table =>
                 {
@@ -683,8 +685,8 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "WishesUsers",
                 columns: table => new
                 {
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "The user id"),
-                    ProductId = table.Column<int>(type: "int", nullable: false, comment: "The product id")
+                    AppUserId = table.Column<string>(type: "text", nullable: false, comment: "The user id"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false, comment: "The product id")
                 },
                 constraints: table =>
                 {
@@ -708,22 +710,22 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "AddressDeliveries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Address Id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "First Name Recipient"),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Last Name Recipient"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Phone Number Recipient"),
-                    PostCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Post Code"),
-                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true, comment: "Address"),
-                    Town = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Town"),
-                    District = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "District"),
-                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Country"),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Email"),
-                    IsShippingToOffice = table.Column<bool>(type: "bit", nullable: false),
-                    ShippingOfficeId = table.Column<int>(type: "int", nullable: true),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "App User Id"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Address Id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "First Name Recipient"),
+                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "Last Name Recipient"),
+                    PhoneNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, comment: "Phone Number Recipient"),
+                    PostCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true, comment: "Post Code"),
+                    Address = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true, comment: "Address"),
+                    Town = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "Town"),
+                    District = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "District"),
+                    Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "Country"),
+                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true, comment: "Email"),
+                    IsShippingToOffice = table.Column<bool>(type: "boolean", nullable: false),
+                    ShippingOfficeId = table.Column<int>(type: "integer", nullable: true),
+                    AppUserId = table.Column<string>(type: "text", nullable: false, comment: "App User Id"),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDefault = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -746,11 +748,11 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ImageReviews",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "The image id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImagePath = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false, comment: "The path of the image"),
-                    ProductId = table.Column<int>(type: "int", nullable: false, comment: "The identifier of the product."),
-                    AuthorId = table.Column<string>(type: "nvarchar(450)", nullable: true, comment: "The identifier of the author.")
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "The image id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImagePath = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: false, comment: "The path of the image"),
+                    ProductId = table.Column<int>(type: "integer", nullable: false, comment: "The identifier of the product."),
+                    AuthorId = table.Column<string>(type: "text", nullable: true, comment: "The identifier of the author.")
                 },
                 constraints: table =>
                 {
@@ -767,37 +769,37 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Order Id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderNumber = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Order Number"),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Date of Order Creating"),
-                    StatusOrderId = table.Column<int>(type: "int", nullable: false, comment: "Status of Order"),
-                    DeliveryMethodId = table.Column<int>(type: "int", nullable: false, comment: "Method of Delivery"),
-                    AddressDeliveryId = table.Column<int>(type: "int", nullable: true, comment: "Address Delivery Id"),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true, comment: "App User Id"),
-                    DateShipping = table.Column<DateTime>(type: "datetime2", nullable: true, comment: "Date of Shipping Creating"),
-                    TrackingNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true, comment: "Tracking Number of Order"),
-                    PaymentMethodId = table.Column<int>(type: "int", nullable: false, comment: "Payment Method Id"),
-                    IsPaid = table.Column<bool>(type: "bit", nullable: false, comment: "Is Paid Order"),
-                    NoteForDelivery = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true, comment: "Note for Delivery"),
-                    ExchangeRate = table.Column<decimal>(type: "decimal(18,4)", nullable: false, comment: "Exchange Rate of the Prices"),
-                    Currency = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false, comment: "Language of Order, determinate the currency of the prices"),
-                    ShippingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Shipping Price"),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "Absolute Discount value"),
-                    PromoCodeId = table.Column<int>(type: "int", nullable: true, comment: "Promo Code Id"),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "First Name Recipient"),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Last Name Recipient"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "Phone Number Recipient"),
-                    PostCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Post Code"),
-                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true, comment: "Address"),
-                    Town = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Town"),
-                    District = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "District"),
-                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "Country"),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true, comment: "Email"),
-                    ShippingOfficeId = table.Column<int>(type: "int", nullable: true),
-                    ShippingProviderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShippingOfficeCity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ShippingOfficeAddress = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false, comment: "Order Id")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OrderNumber = table.Column<string>(type: "text", nullable: true, comment: "Order Number"),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, comment: "Date of Order Creating"),
+                    StatusOrderId = table.Column<int>(type: "integer", nullable: false, comment: "Status of Order"),
+                    DeliveryMethodId = table.Column<int>(type: "integer", nullable: false, comment: "Method of Delivery"),
+                    AddressDeliveryId = table.Column<int>(type: "integer", nullable: true, comment: "Address Delivery Id"),
+                    AppUserId = table.Column<string>(type: "text", nullable: true, comment: "App User Id"),
+                    DateShipping = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true, comment: "Date of Shipping Creating"),
+                    TrackingNumber = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true, comment: "Tracking Number of Order"),
+                    PaymentMethodId = table.Column<int>(type: "integer", nullable: false, comment: "Payment Method Id"),
+                    IsPaid = table.Column<bool>(type: "boolean", nullable: false, comment: "Is Paid Order"),
+                    NoteForDelivery = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true, comment: "Note for Delivery"),
+                    ExchangeRate = table.Column<decimal>(type: "numeric(18,4)", nullable: false, comment: "Exchange Rate of the Prices"),
+                    Currency = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false, comment: "Language of Order, determinate the currency of the prices"),
+                    ShippingPrice = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "Shipping Price"),
+                    Discount = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "Absolute Discount value"),
+                    PromoCodeId = table.Column<int>(type: "integer", nullable: true, comment: "Promo Code Id"),
+                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "First Name Recipient"),
+                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, comment: "Last Name Recipient"),
+                    PhoneNumber = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, comment: "Phone Number Recipient"),
+                    PostCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true, comment: "Post Code"),
+                    Address = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true, comment: "Address"),
+                    Town = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "Town"),
+                    District = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "District"),
+                    Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true, comment: "Country"),
+                    Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true, comment: "Email"),
+                    ShippingOfficeId = table.Column<int>(type: "integer", nullable: true),
+                    ShippingProviderName = table.Column<string>(type: "text", nullable: true),
+                    ShippingOfficeCity = table.Column<string>(type: "text", nullable: true),
+                    ShippingOfficeAddress = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -847,11 +849,11 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "ProductsOrders",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false, comment: "The quantity of the product in the order"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false, comment: "The price of the product at the time of the order"),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "The image path of the product at the time of the order")
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    OrderId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false, comment: "The quantity of the product in the order"),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false, comment: "The price of the product at the time of the order"),
+                    ImagePath = table.Column<string>(type: "text", nullable: true, comment: "The image path of the product at the time of the order")
                 },
                 constraints: table =>
                 {
@@ -881,8 +883,8 @@ namespace LilsCareApp.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "ImagePath", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "45fbe739-6be0-429d-b44b-1ce6cf7eeef", 0, "c3fa5fb3-50a8-4262-a2cb-6e820ee0086a", "admin@mail.com", true, "Admin", null, "Adminov", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAIAAYagAAAAEMtaFDTCPnDh3aMSB6kBkcW+S60aPdFQytNZcJsu+MlmJzg/CG5TufCFMGap6wDmUw==", null, false, "8a920062-6f95-4b1d-9b0c-6e7e42c6a1b9", false, "admin@mail.com" },
-                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 0, "8018332b-44ac-4ad4-a0db-96bc9ca5a10a", "test@softuni.bg", true, "Test", null, "Testov", false, null, "TEST@SOFTUNI.BG", "TEST@SOFTUNI.BG", "AQAAAAIAAYagAAAAEHc9eNs79b+i3Rde8O58vqD7MavwLn4+KyouDjtJcKHK9nlA1L2ucYSVHLCxztytJg==", null, false, "5da0f29f-acf2-4a01-970e-d2c194b13914", false, "test@softuni.bg" }
+                    { "45fbe739-6be0-429d-b44b-1ce6cf7eeef", 0, "df56c051-24a9-4225-ac8d-6fa4e5aa1e4c", "admin@mail.com", true, "Admin", null, "Adminov", false, null, "ADMIN@MAIL.COM", "ADMIN@MAIL.COM", "AQAAAAIAAYagAAAAEPqqeRgjJmHKOTNwLZVxl0rGRe7hHdghLKWoNm76n14fkjtiY/xw70q2Ena+kgpm4g==", null, false, "90879803-14ca-4aea-8c5b-29274b3af080", false, "admin@mail.com" },
+                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 0, "203619d0-e32a-490d-8b64-743b51794f75", "test@softuni.bg", true, "Test", null, "Testov", false, null, "TEST@SOFTUNI.BG", "TEST@SOFTUNI.BG", "AQAAAAIAAYagAAAAEIKadnacdhx8PG/498V7G0K5E5YnPA2vpOvyZ94y56TlWAW98NUm/kQn5uFGnUfZ+Q==", null, false, "1d66dece-1154-4091-a03f-4a50c5bb49ee", false, "test@softuni.bg" }
                 });
 
             migrationBuilder.InsertData(
@@ -1113,25 +1115,25 @@ namespace LilsCareApp.Infrastructure.Migrations
                 columns: new[] { "Id", "AppUserId", "AppliedDate", "CodeId", "Discount", "ExpirationDate" },
                 values: new object[,]
                 {
-                    { 1, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, 1, 0.1m, new DateTime(2025, 5, 5, 7, 16, 53, 57, DateTimeKind.Utc).AddTicks(9847) },
-                    { 2, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, 2, 0.2m, new DateTime(2025, 5, 5, 7, 16, 53, 57, DateTimeKind.Utc).AddTicks(9857) }
+                    { 1, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, 1, 0.1m, new DateTimeOffset(new DateTime(2025, 5, 24, 14, 17, 6, 585, DateTimeKind.Unspecified).AddTicks(1570), new TimeSpan(0, 0, 0, 0, 0)) },
+                    { 2, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, 2, 0.2m, new DateTimeOffset(new DateTime(2025, 5, 24, 14, 17, 6, 585, DateTimeKind.Unspecified).AddTicks(1580), new TimeSpan(0, 0, 0, 0, 0)) }
                 });
 
             migrationBuilder.InsertData(
                 table: "ShippingOffices",
-                columns: new[] { "Id", "City", "OfficeAddress", "Price", "ShippingDuration", "ShippingProviderId" },
+                columns: new[] { "Id", "City", "OfficeAddress", "OfficeAddressId", "Price", "ShippingDuration", "ShippingProviderId" },
                 values: new object[,]
                 {
-                    { 1, "Sofia", "bul. Vitosha 100", 5.00m, 2, 1 },
-                    { 2, "Sofia", "bul. Hristo Botev 20", 5.00m, 2, 1 },
-                    { 3, "Varna", "bul. Vitosha 100", 5.00m, 2, 1 },
-                    { 4, "Burgas", "bul. Vitosha 100", 5.00m, 2, 1 },
-                    { 5, "Ruse", "bul. Vitosha 100", 5.00m, 2, 1 },
-                    { 6, "Sofia", "bul. Vitosha 200", 5.00m, 2, 2 },
-                    { 7, "Sofia", "bul. Hristo Botev 30", 5.00m, 2, 2 },
-                    { 8, "Sofia", "bul. Bozveli 200", 5.00m, 2, 2 },
-                    { 9, "Burgas", "bul. Vitosha 200", 5.00m, 2, 2 },
-                    { 10, "Ruse", "bul. Vitosha 200", 5.00m, 2, 2 }
+                    { 1, "Sofia", "bul. Vitosha 100", 0, 5.00m, 2, 1 },
+                    { 2, "Sofia", "bul. Hristo Botev 20", 0, 5.00m, 2, 1 },
+                    { 3, "Varna", "bul. Vitosha 100", 0, 5.00m, 2, 1 },
+                    { 4, "Burgas", "bul. Vitosha 100", 0, 5.00m, 2, 1 },
+                    { 5, "Ruse", "bul. Vitosha 100", 0, 5.00m, 2, 1 },
+                    { 6, "Sofia", "bul. Vitosha 200", 0, 5.00m, 2, 2 },
+                    { 7, "Sofia", "bul. Hristo Botev 30", 0, 5.00m, 2, 2 },
+                    { 8, "Sofia", "bul. Bozveli 200", 0, 5.00m, 2, 2 },
+                    { 9, "Burgas", "bul. Vitosha 200", 0, 5.00m, 2, 2 },
+                    { 10, "Ruse", "bul. Vitosha 200", 0, 5.00m, 2, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -1198,7 +1200,7 @@ namespace LilsCareApp.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "AddressDeliveryId", "AppUserId", "Country", "CreatedOn", "Currency", "DateShipping", "DeliveryMethodId", "Discount", "District", "Email", "ExchangeRate", "FirstName", "IsPaid", "LastName", "NoteForDelivery", "OrderNumber", "PaymentMethodId", "PhoneNumber", "PostCode", "PromoCodeId", "ShippingOfficeAddress", "ShippingOfficeCity", "ShippingOfficeId", "ShippingPrice", "ShippingProviderName", "StatusOrderId", "Town", "TrackingNumber" },
-                values: new object[] { 2, null, 2, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, new DateTime(2023, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "€", null, 2, 0.00m, null, null, 1.95m, "Jane", false, "Doe", null, "123456x", 2, "1234567890x", null, null, null, null, null, 5.00m, null, 2, null, null });
+                values: new object[] { 2, null, 2, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, new DateTimeOffset(new DateTime(2023, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)), "€", null, 2, 0.00m, null, null, 1.95m, "Jane", false, "Doe", null, "123456x", 2, "1234567890x", null, null, null, null, null, 5.00m, null, 2, null, null });
 
             migrationBuilder.InsertData(
                 table: "ProductsCategories",
@@ -1230,9 +1232,9 @@ namespace LilsCareApp.Infrastructure.Migrations
                 columns: new[] { "AuthorId", "ProductId", "Comment", "CreatedOn", "Rating", "Title" },
                 values: new object[,]
                 {
-                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 2, "Great product, I love it!", new DateTime(2024, 5, 5, 10, 16, 53, 57, DateTimeKind.Local).AddTicks(8991), 4, "Great product" },
-                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 3, "Great product, I love it!", new DateTime(2024, 5, 5, 10, 16, 53, 57, DateTimeKind.Local).AddTicks(9062), 3, "Great product" },
-                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 4, "Great product, I love it!", new DateTime(2024, 5, 5, 10, 16, 53, 57, DateTimeKind.Local).AddTicks(9066), 3, "Great product" }
+                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 2, "Great product, I love it!", new DateTimeOffset(new DateTime(2024, 5, 24, 17, 17, 6, 585, DateTimeKind.Unspecified).AddTicks(818), new TimeSpan(0, 3, 0, 0, 0)), 4, "Great product" },
+                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 3, "Great product, I love it!", new DateTimeOffset(new DateTime(2024, 5, 24, 17, 17, 6, 585, DateTimeKind.Unspecified).AddTicks(917), new TimeSpan(0, 3, 0, 0, 0)), 3, "Great product" },
+                    { "85fbe739-6be0-429d-b44b-1ce6cf7eeef", 4, "Great product, I love it!", new DateTimeOffset(new DateTime(2024, 5, 24, 17, 17, 6, 585, DateTimeKind.Unspecified).AddTicks(924), new TimeSpan(0, 3, 0, 0, 0)), 3, "Great product" }
                 });
 
             migrationBuilder.InsertData(
@@ -1290,7 +1292,7 @@ namespace LilsCareApp.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "Address", "AddressDeliveryId", "AppUserId", "Country", "CreatedOn", "Currency", "DateShipping", "DeliveryMethodId", "Discount", "District", "Email", "ExchangeRate", "FirstName", "IsPaid", "LastName", "NoteForDelivery", "OrderNumber", "PaymentMethodId", "PhoneNumber", "PostCode", "PromoCodeId", "ShippingOfficeAddress", "ShippingOfficeCity", "ShippingOfficeId", "ShippingPrice", "ShippingProviderName", "StatusOrderId", "Town", "TrackingNumber" },
-                values: new object[] { 1, null, 1, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, new DateTime(2023, 10, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "лв.", new DateTime(2023, 10, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10.00m, null, null, 1.00m, "John", false, "Doe", null, "123456", 1, "1234567890", null, null, null, null, null, 5.00m, null, 1, null, "1234567890" });
+                values: new object[] { 1, null, 1, "85fbe739-6be0-429d-b44b-1ce6cf7eeef", null, new DateTimeOffset(new DateTime(2023, 10, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)), "лв.", new DateTimeOffset(new DateTime(2023, 10, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)), 1, 10.00m, null, null, 1.00m, "John", false, "Doe", null, "123456", 1, "1234567890", null, null, null, null, null, 5.00m, null, 1, null, "1234567890" });
 
             migrationBuilder.InsertData(
                 table: "ProductsOrders",
@@ -1322,8 +1324,7 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -1349,8 +1350,7 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BagsUsers_ProductId",
@@ -1408,8 +1408,7 @@ namespace LilsCareApp.Infrastructure.Migrations
                 name: "IX_Orders_PromoCodeId",
                 table: "Orders",
                 column: "PromoCodeId",
-                unique: true,
-                filter: "[PromoCodeId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_ShippingOfficeId",

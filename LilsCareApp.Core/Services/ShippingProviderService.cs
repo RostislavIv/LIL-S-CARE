@@ -155,9 +155,9 @@ public class Office
 
     public WorkingTimeSchedule[] workingTimeSchedule { get; set; } = [];
 
-    public DateTime validFrom { get; set; }
+    public DateTimeOffset validFrom { get; set; }
 
-    public DateTime validTo { get; set; }
+    public DateTimeOffset validTo { get; set; }
 
     public string[] cargoTypesAllowed { get; set; } = [];
 
@@ -174,7 +174,7 @@ public class MaxParcelDimensions
 
 public class WorkingTimeSchedule
 {
-    public DateTime date { get; set; }
+    public DateTimeOffset date { get; set; }
 
     public string workingTimeFrom { get; set; } = string.Empty;
 

@@ -17,7 +17,7 @@ namespace LilsCareApp.Infrastructure.Data.Models
         public string? OrderNumber { get; set; }
 
         [Comment("Date of Order Creating")]
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
         [Comment("Status of Order")]
         public int StatusOrderId { get; set; }
@@ -48,7 +48,7 @@ namespace LilsCareApp.Infrastructure.Data.Models
         public AppUser? AppUser { get; set; }
 
         [Comment("Date of Shipping Creating")]
-        public DateTime? DateShipping { get; set; }
+        public DateTimeOffset? DateShipping { get; set; }
 
         [Comment("Tracking Number of Order")]
         [MaxLength(TrackingNumberMaxLength)]

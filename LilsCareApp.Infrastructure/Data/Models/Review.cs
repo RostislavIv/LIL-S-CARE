@@ -41,6 +41,6 @@ namespace LilsCareApp.Infrastructure.Data.Models
         public List<ImageReview>? Images { get; set; }
 
         [Comment("The date when the review was created.")]
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
     }
 }

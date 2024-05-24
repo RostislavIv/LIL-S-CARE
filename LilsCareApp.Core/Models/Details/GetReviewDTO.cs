@@ -18,7 +18,7 @@
 
         public ImageDTO[] Images { get; set; } = new ImageDTO[3];
 
-        public DateTime CreatedOn { get; set; }
+        public DateTimeOffset CreatedOn { get; set; }
 
     }
 }
