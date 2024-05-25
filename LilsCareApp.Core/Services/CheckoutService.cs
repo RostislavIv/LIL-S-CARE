@@ -1,5 +1,6 @@
 ﻿using LilsCareApp.Core.Contracts;
 using LilsCareApp.Core.Models.Checkout;
+using LilsCareApp.Core.Models.Statistic;
 using LilsCareApp.Infrastructure.Data;
 using LilsCareApp.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -412,6 +413,15 @@ namespace LilsCareApp.Core.Services
             order.Total = order.SubTotal + order.ShippingPrice;
 
             return order;
+        }
+
+        public async Task<StatisticsModel> GetStatisticsAsync()
+        {
+            return new StatisticsModel()
+            {
+                TotalIOrders = await _context.Orders.CountAsync(),
+                TotalProducts = await _context.Products.CountAsync(),
+            };
         }
     }
 }

@@ -1,0 +1,6 @@
+@LilisCareApp.WebApi_HostAddress = http://localhost:5249
+
+GET {{LilisCareApp.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,4 +1,5 @@
 ﻿using LilsCareApp.Core.Models.Checkout;
+using LilsCareApp.Core.Models.Statistic;
 
 namespace LilsCareApp.Core.Contracts
 {
@@ -12,5 +13,7 @@ namespace LilsCareApp.Core.Contracts
         Task<OrderSummaryDTO> OrderSummaryAsync(string orderSNumber);
         Task<OrderDTO> GetOrderAsync(string? userId);
         Task<OrderDTO> CalculateCheckout(OrderDTO order);
+
+        Task<StatisticsModel> GetStatisticsAsync();
     }
 }
